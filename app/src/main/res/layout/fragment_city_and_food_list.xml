@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <import type="android.view.View" />
 
         <variable
-            name="productListViewModel"
-            type="com.wealthPark.testApplication.ui.carList.ProductListViewModel" />
+            name="listViewModel"
+            type="com.wealthPark.testApplication.ui.carList.CityAndFoodListViewModel" />
     </data>
 
 
@@ -23,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:indeterminate="true"
-            android:visibility="@{productListViewModel.isLoading?View.VISIBLE:View.GONE}"
+            android:visibility="@{listViewModel.isLoading?View.VISIBLE:View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

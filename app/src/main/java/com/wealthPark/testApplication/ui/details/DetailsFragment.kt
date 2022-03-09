@@ -1,4 +1,4 @@
-package com.wealthPark.testApplication.ui.carDetails
+package com.wealthPark.testApplication.ui.details
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,21 +10,21 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.wealthPark.testApplication.R
-import com.wealthPark.testApplication.databinding.FragmentProductDetailsBinding
+import com.wealthPark.testApplication.databinding.FragmentDetailsBinding
 import com.wealthPark.testApplication.utils.dialogUtils.CustomDialogCallback
 import com.wealthPark.testApplication.utils.dialogUtils.CustomDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProductDetailsFragment : Fragment(), IProductDetailsNavigator {
+class DetailsFragment : Fragment(), IDetailsNavigator {
 
     companion object {
         const val DIALOG_TAG = "dialog"
         const val CAR_ID = "id"
     }
 
-    private lateinit var carDetailsBinding: FragmentProductDetailsBinding
-    private val viewModel by viewModels<ProductDetailsViewModel>()
+    private lateinit var detailsBinding: FragmentDetailsBinding
+    private val viewModel by viewModels<DetailsViewModel>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,10 +36,10 @@ class ProductDetailsFragment : Fragment(), IProductDetailsNavigator {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        carDetailsBinding = FragmentProductDetailsBinding.inflate(layoutInflater)
-        carDetailsBinding.lifecycleOwner = this
-        carDetailsBinding.carDetailsViewModel = viewModel
-        return carDetailsBinding.root
+        detailsBinding = FragmentDetailsBinding.inflate(layoutInflater)
+        detailsBinding.lifecycleOwner = this
+        detailsBinding.detailsViewModel = viewModel
+        return detailsBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

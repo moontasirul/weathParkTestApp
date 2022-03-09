@@ -1,8 +1,8 @@
-package com.wealthPark.testApplication.ui.carDetails
+package com.wealthPark.testApplication.ui.details
 
 import com.wealthPark.testApplication.ui.base.IBaseNavigator
 
-interface IProductDetailsNavigator : IBaseNavigator {
+interface IDetailsNavigator : IBaseNavigator {
     fun showSuccessDialog()
     fun showFailedDialog()
 }

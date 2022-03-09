@@ -1,12 +1,11 @@
 package com.wealthPark.testApplication.data.repository
 
-import com.example.example.QuickRentalResponse
 import com.wealthPark.testApplication.data.local.prefs.AppPreferences
-import com.wealthPark.testApplication.data.model.Car
+import com.wealthPark.testApplication.data.model.City
+import com.wealthPark.testApplication.data.model.CityItem
+import com.wealthPark.testApplication.data.model.Food
 import com.wealthPark.testApplication.data.model.FoodItem
-import com.wealthPark.testApplication.data.model.QuickRentalRequest
-import com.wealthPark.testApplication.data.remote.dataSource.ProductRemoteDataSource
-import com.wealthPark.testApplication.data.remote.dataSource.ReservationDataSource
+import com.wealthPark.testApplication.data.remote.dataSource.RemoteDataSource
 import com.wealthPark.testApplication.data.remote.dataSource.baseDataSource.BaseDataSource
 import com.wealthPark.testApplication.utils.Resource
 import dagger.hilt.android.scopes.ActivityRetainedScoped
@@ -18,38 +17,32 @@ import javax.inject.Inject
 
 @ActivityRetainedScoped
 class AppRepository @Inject constructor(
-    private var productDataSource: ProductRemoteDataSource,
-    private var reservationDataSource: ReservationDataSource,
+    private var dataSource: RemoteDataSource,
     private var preferences: AppPreferences
 ) : BaseDataSource() {
 
-    suspend fun getCar(): Flow<Resource<Car>> {
+    suspend fun getAllCity(): Flow<Resource<City>> {
         return flow {
-            emit(productDataSource.getAllCars())
+            emit(dataSource.getAllCity())
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun getCarDetails(id: Int): Flow<Resource<FoodItem>> {
+    suspend fun getAllFood(): Flow<Resource<Food>> {
         return flow {
-            emit(productDataSource.getCarInfo(id))
+            emit(dataSource.getAllFood())
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun setQuickRentalReservation(quickRentalRequest: QuickRentalRequest): Flow<Resource<QuickRentalResponse>> {
+    suspend fun getCityDetails(id: Int): Flow<Resource<CityItem>> {
         return flow {
-            emit(reservationDataSource.setQuickRental(quickRentalRequest))
+            emit(dataSource.getCityInfo(id))
         }.flowOn(Dispatchers.IO)
     }
 
-    fun getReservationData(): QuickRentalResponse? {
-        return preferences.quickRentalResponse
-    }
 
-    fun setReservationData(quickRentalResponse: QuickRentalResponse) {
-        preferences.quickRentalResponse = quickRentalResponse
-    }
-
-    fun removeReservationData() {
-        preferences.quickRentalResponse = null
+    suspend fun getFoodDetails(id: Int): Flow<Resource<FoodItem>> {
+        return flow {
+            emit(dataSource.getFoodInfo(id))
+        }.flowOn(Dispatchers.IO)
     }
 }

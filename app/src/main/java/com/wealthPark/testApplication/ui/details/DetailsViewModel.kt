@@ -1,10 +1,10 @@
-package com.wealthPark.testApplication.ui.carDetails
+package com.wealthPark.testApplication.ui.details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.wealthPark.testApplication.data.model.CityItem
 import com.wealthPark.testApplication.data.model.FoodItem
-import com.wealthPark.testApplication.data.model.QuickRentalRequest
 import com.wealthPark.testApplication.data.repository.AppRepository
 import com.wealthPark.testApplication.ui.base.BaseViewModel
 import com.wealthPark.testApplication.utils.AppEnum
@@ -15,9 +15,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProductDetailsViewModel @Inject constructor(
+class DetailsViewModel @Inject constructor(
     private val repository: AppRepository
-) : BaseViewModel<IProductDetailsNavigator>() {
+) : BaseViewModel<IDetailsNavigator>() {
 
     private val carId = MutableLiveData<Int>()
     var carTitle = MutableLiveData<String>()
@@ -39,8 +39,8 @@ class ProductDetailsViewModel @Inject constructor(
     var damageDescription = MutableLiveData<String>()
     var vehicleTypeImage = MutableLiveData<String>()
 
-    private val _carResponse: MutableLiveData<Resource<FoodItem>> = MutableLiveData()
-    val response: LiveData<Resource<FoodItem>> = _carResponse
+    private val _cityResponse: MutableLiveData<Resource<CityItem>> = MutableLiveData()
+    val response: LiveData<Resource<CityItem>> = _cityResponse
 
     fun setCarId(id: Int) {
         carId.value = id
@@ -50,8 +50,8 @@ class ProductDetailsViewModel @Inject constructor(
     fun fetchCarDetails() {
         viewModelScope.launch {
             carId.value?.let {
-                repository.getCarDetails(it).collect { value ->
-                    _carResponse.value = value
+                repository.getCityDetails(it).collect { value ->
+                    _cityResponse.value = value
                 }
             }
         }
@@ -81,30 +81,4 @@ class ProductDetailsViewModel @Inject constructor(
 
 
 
-    fun onClickQuickRent() {
-        isLoading.set(true)
-        viewModelScope.launch {
-            carId.value?.let {
-                repository.setQuickRentalReservation(QuickRentalRequest(it)).collect { response ->
-                    when (response.status.name) {
-                        AppEnum.API_CALL_STATUS.SUCCESS.name -> {
-                            response.data?.let {
-                                isLoading.set(false)
-                                repository.setReservationData(it)
-                                navigator.showSuccessDialog()
-                            }
-                        }
-                        AppEnum.API_CALL_STATUS.ERROR.name -> {
-                            isLoading.set(false)
-                            navigator.showFailedDialog()
-                            print(response.message)
-                        }
-                        AppEnum.API_CALL_STATUS.LOADING.name -> {
-                            isLoading.set(true)
-                        }
-                    }
-                }
-            }
-        }
-    }
 }

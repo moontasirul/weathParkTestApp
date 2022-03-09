@@ -3,9 +3,8 @@ package com.wealthPark.testApplication.ui.carList
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.example.QuickRentalResponse
-import com.wealthPark.testApplication.data.model.Car
-import com.wealthPark.testApplication.data.model.ProductItemItem
+import com.wealthPark.testApplication.data.model.City
+import com.wealthPark.testApplication.data.model.CityItem
 import com.wealthPark.testApplication.data.repository.AppRepository
 import com.wealthPark.testApplication.ui.base.BaseViewModel
 import com.wealthPark.testApplication.utils.AppEnum
@@ -17,23 +16,23 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class ProductListViewModel @Inject constructor(
+class CityAndFoodListViewModel @Inject constructor(
     private val repository: AppRepository
-) : BaseViewModel<IProductListNavigator>() {
+) : BaseViewModel<ICityAndFoodNavigator>() {
 
-    private val _response: MutableLiveData<Resource<Car>> = MutableLiveData()
-    val response: LiveData<Resource<Car>> = _response
+    private val _response: MutableLiveData<Resource<City>> = MutableLiveData()
+    val response: LiveData<Resource<City>> = _response
 
 
-    var productItemList: ArrayList<ProductItemItem> = arrayListOf()
+    var productItemList: ArrayList<CityItem> = arrayListOf()
 
     fun fetchCarResponse() = viewModelScope.launch {
-        repository.getCar().collect { values ->
+        repository.getAllCity().collect { values ->
             _response.value = values
         }
     }
 
-    fun getCarResponse(response: Resource<Car>) {
+    fun getCarResponse(response: Resource<City>) {
         when (response.status.name) {
             AppEnum.API_CALL_STATUS.SUCCESS.name -> {
                 response.data?.let {
@@ -54,11 +53,4 @@ class ProductListViewModel @Inject constructor(
     }
 
 
-    fun getReservationData(): QuickRentalResponse? {
-        return repository.getReservationData()
-    }
-
-    fun removeReservationData() {
-        repository.removeReservationData()
-    }
 }

@@ -8,30 +8,30 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.wealthPark.testApplication.R
-import com.wealthPark.testApplication.databinding.FragmentProductListBinding
-import com.wealthPark.testApplication.ui.carDetails.ProductDetailsFragment
+import com.wealthPark.testApplication.databinding.FragmentCityAndFoodListBinding
+import com.wealthPark.testApplication.ui.details.DetailsFragment
 import com.wealthPark.testApplication.utils.dialogUtils.CustomDialogCallback
 import com.wealthPark.testApplication.utils.dialogUtils.CustomDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProductListFragment : Fragment(),
-    IProductListNavigator {
+class CityAndFoodListFragment : Fragment(),
+    ICityAndFoodNavigator {
 
     companion object {
 
         const val CAR_ID = "id"
     }
 
-    private lateinit var carBinding: FragmentProductListBinding
-    private val viewModel by viewModels<ProductListViewModel>()
+    private lateinit var carBinding: FragmentCityAndFoodListBinding
+    private val viewModel by viewModels<CityAndFoodListViewModel>()
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        carBinding = FragmentProductListBinding.inflate(layoutInflater)
+        carBinding = FragmentCityAndFoodListBinding.inflate(layoutInflater)
         return carBinding.root
     }
 
@@ -93,7 +93,7 @@ class ProductListFragment : Fragment(),
             },
             isOnlyPositive,
         )
-        dialog.show(childFragmentManager, ProductDetailsFragment.DIALOG_TAG)
+        dialog.show(childFragmentManager, DetailsFragment.DIALOG_TAG)
     }
 
 }

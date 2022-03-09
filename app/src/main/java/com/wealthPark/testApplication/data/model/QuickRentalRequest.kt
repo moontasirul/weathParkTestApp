@@ -1,7 +1,0 @@
-package com.wealthPark.testApplication.data.model
-
-import com.google.gson.annotations.SerializedName
-
-data class QuickRentalRequest(
-    @SerializedName("carId") var carId: Int? = null
-)

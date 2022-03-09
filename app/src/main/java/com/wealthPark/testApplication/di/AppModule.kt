@@ -2,24 +2,24 @@ package com.wealthPark.testApplication.di
 
 import android.app.Application
 import android.content.Context
+import androidx.room.Room
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.wealthPark.testApplication.data.local.database.AppDatabase
+import com.wealthPark.testApplication.data.local.database.AppDatabase.Companion.DATABASE_NAME
+import com.wealthPark.testApplication.data.local.database.dao.CityDao
 import com.wealthPark.testApplication.data.local.prefs.AppPreferences
 import com.wealthPark.testApplication.data.remote.ApiEndPoint.Companion.BASE_URL
-import com.wealthPark.testApplication.data.remote.ApiEndPoint.Companion.BASE_URL_FOR_RESERVATION
-import com.wealthPark.testApplication.data.remote.apiService.IProductService
-import com.wealthPark.testApplication.data.remote.apiService.IReservationService
-import com.wealthPark.testApplication.utils.Constants.Companion.ASSESS_TOKEN
+import com.wealthPark.testApplication.data.remote.apiService.ICityAndFoodService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -70,40 +70,22 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideCarService(retrofit: Retrofit): IProductService =
-        retrofit.create(IProductService::class.java)
-
-    @Singleton
-    @Provides
-    fun provideCarServicePost(
-        @Named("reservation") retrofit: Retrofit
-    ): IReservationService =
-        retrofit.create(IReservationService::class.java)
+    fun provideCarService(retrofit: Retrofit): ICityAndFoodService =
+        retrofit.create(ICityAndFoodService::class.java)
 
 
     @Singleton
     @Provides
-    @Named("reservation")
-    fun provideRetrofitWithToken(
-        gsonConverterFactory: GsonConverterFactory
-    ): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL_FOR_RESERVATION)
-            .client(
-                OkHttpClient.Builder().addNetworkInterceptor(HttpLoggingInterceptor()
-                    .apply {
-                        level = HttpLoggingInterceptor.Level.BODY
-                        level = HttpLoggingInterceptor.Level.HEADERS
-                    })
-                    .addInterceptor { chain ->
-                        val request = chain.request().newBuilder().addHeader(
-                            "Authorization",
-                            "Bearer $ASSESS_TOKEN"
-                        ).build()
-                        chain.proceed(request)
-                    }.build()
-            )
-            .addConverterFactory(gsonConverterFactory)
-            .build()
+    fun provideDatabase(@ApplicationContext appContext: Context): AppDatabase {
+        return Room.databaseBuilder(
+            appContext,
+            AppDatabase::class.java,
+            DATABASE_NAME
+        ).allowMainThreadQueries().build()
+    }
+
+    @Provides
+    fun provideCityDao(database: AppDatabase): CityDao {
+        return database.cityDao()
     }
 }
