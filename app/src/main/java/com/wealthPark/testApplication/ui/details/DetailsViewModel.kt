@@ -3,8 +3,8 @@ package com.wealthPark.testApplication.ui.details
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.wealthPark.testApplication.data.model.CityItem
-import com.wealthPark.testApplication.data.model.FoodItem
+import com.wealthPark.testApplication.data.local.model.CityItem
+import com.wealthPark.testApplication.data.local.model.FoodItem
 import com.wealthPark.testApplication.data.repository.AppRepository
 import com.wealthPark.testApplication.ui.base.BaseViewModel
 import com.wealthPark.testApplication.utils.AppEnum

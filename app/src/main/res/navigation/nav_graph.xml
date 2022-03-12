@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/cityAndFoodListFragment"
-        android:name="com.wealthPark.testApplication.ui.carList.CityAndFoodListFragment"
+        android:name="com.wealthPark.testApplication.ui.cityAndFoodList.CityAndFoodListFragment"
         android:label="Wealth Park App"
         tools:layout="@layout/fragment_city_and_food_list">
         <action

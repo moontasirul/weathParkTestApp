@@ -1,7 +1,7 @@
-package com.wealthPark.testApplication.ui.carList
+package com.wealthPark.testApplication.ui.cityAndFoodList
 
-import com.wealthPark.testApplication.data.model.CityItem
-import com.wealthPark.testApplication.data.model.FoodItem
+import com.wealthPark.testApplication.data.local.model.CityItem
+import com.wealthPark.testApplication.data.local.model.FoodItem
 import com.wealthPark.testApplication.data.repository.AppRepository
 import com.wealthPark.testApplication.ui.base.BaseViewModel
 import com.wealthPark.testApplication.utils.AppEnum
@@ -22,10 +22,9 @@ class CityAndFoodListViewModel @Inject constructor(
         when (response.status.name) {
             AppEnum.API_CALL_STATUS.SUCCESS.name -> {
                 response.data?.let {
-
+                    navigator.onSetCityInfo(ArrayList(it))
                 }
                 isLoading.set(false)
-
             }
             AppEnum.API_CALL_STATUS.ERROR.name -> {
                 isLoading.set(false)
@@ -42,7 +41,7 @@ class CityAndFoodListViewModel @Inject constructor(
         when (response.status.name) {
             AppEnum.API_CALL_STATUS.SUCCESS.name -> {
                 response.data?.let {
-
+                    navigator.onSetFoodInfo(ArrayList(it))
                 }
                 isLoading.set(false)
 

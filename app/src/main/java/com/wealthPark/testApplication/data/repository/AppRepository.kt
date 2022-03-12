@@ -2,9 +2,9 @@ package com.wealthPark.testApplication.data.repository
 
 import com.wealthPark.testApplication.data.local.database.dao.CityDao
 import com.wealthPark.testApplication.data.local.database.dao.FoodDao
+import com.wealthPark.testApplication.data.local.model.CityItem
+import com.wealthPark.testApplication.data.local.model.FoodItem
 import com.wealthPark.testApplication.data.local.prefs.AppPreferences
-import com.wealthPark.testApplication.data.model.CityItem
-import com.wealthPark.testApplication.data.model.FoodItem
 import com.wealthPark.testApplication.data.remote.dataSource.RemoteDataSource
 import com.wealthPark.testApplication.data.remote.dataSource.baseDataSource.BaseDataSource
 import com.wealthPark.testApplication.utils.Resource
@@ -34,13 +34,22 @@ class AppRepository @Inject constructor(
     fun getAllCitys() = performGetOperation(
         databaseQuery = { localDataSource.getAllCity() },
         networkCall = { dataSource.getAllCity() },
-        saveCallResult = { localDataSource.insertAll(it) }
+        saveCallResult = {
+            // due to currently in api response there have no unique id or parameter
+            // we remove data from local db then insert new
+            localDataSource.removeAll()
+            localDataSource.insertAll(it)
+
+        }
     )
 
     fun getAllFood() = performGetOperation(
         databaseQuery = { localFoodDataSource.getAllFood() },
         networkCall = { dataSource.getAllFood() },
-        saveCallResult = { localFoodDataSource.insertAllFood(it) }
+        saveCallResult = {
+            localFoodDataSource.removeAll()
+            localFoodDataSource.insertAllFood(it)
+        }
     )
 
     suspend fun getCityDetails(id: Int): Flow<Resource<CityItem>> {

@@ -1,4 +1,4 @@
-package com.wealthPark.testApplication.ui.carList
+package com.wealthPark.testApplication.ui.cityAndFoodList
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,8 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.wealthPark.testApplication.R
+import com.wealthPark.testApplication.data.local.model.CityItem
+import com.wealthPark.testApplication.data.local.model.FoodItem
 import com.wealthPark.testApplication.databinding.FragmentCityAndFoodListBinding
 import com.wealthPark.testApplication.ui.details.DetailsFragment
 import com.wealthPark.testApplication.utils.dialogUtils.CustomDialogCallback
@@ -16,23 +18,26 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CityAndFoodListFragment : Fragment(),
-    ICityAndFoodNavigator {
+    ICityAndFoodNavigator, CityListRecyclerViewAdapter.CityItemAdapterListener,
+    FoodListRecyclerViewAdapter.FoodItemAdapterListener {
 
     companion object {
 
         const val CAR_ID = "id"
     }
 
-    private lateinit var carBinding: FragmentCityAndFoodListBinding
+    private lateinit var cityAndFoodBinding: FragmentCityAndFoodListBinding
     private val viewModel: CityAndFoodListViewModel by viewModels()
 
+    private lateinit var cityAdapter: CityListRecyclerViewAdapter
+    private lateinit var foodAdapter: FoodListRecyclerViewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        carBinding = FragmentCityAndFoodListBinding.inflate(layoutInflater)
-        return carBinding.root
+        cityAndFoodBinding = FragmentCityAndFoodListBinding.inflate(layoutInflater)
+        return cityAndFoodBinding.root
     }
 
 
@@ -40,6 +45,8 @@ class CityAndFoodListFragment : Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.setNavigator(this)
+
+
         setupObservers()
     }
 
@@ -99,6 +106,32 @@ class CityAndFoodListFragment : Fragment(),
         dialog.show(childFragmentManager, DetailsFragment.DIALOG_TAG)
     }
 
+
+    override fun onSetCityInfo(cityList: ArrayList<CityItem>) {
+        cityAdapter = CityListRecyclerViewAdapter()
+        cityAndFoodBinding.cityRecyclerView.adapter = cityAdapter
+        cityAdapter.setListener(this)
+        cityAdapter.addItem(cityList)
+    }
+
+    override fun onSetFoodInfo(foodList: ArrayList<FoodItem>) {
+        foodAdapter = FoodListRecyclerViewAdapter()
+        cityAndFoodBinding.foodRecyclerView.adapter = foodAdapter
+        foodAdapter.setListener(this)
+        foodAdapter.addItem(foodList)
+    }
+
+    override fun onCityContent(contentId: Int) {
+
+    }
+
+    override fun onRetryClick() {
+
+    }
+
+    override fun onFoodContent(mFoodListModel: FoodItem) {
+
+    }
 }
 
 

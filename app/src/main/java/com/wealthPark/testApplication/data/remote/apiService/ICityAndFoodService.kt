@@ -1,9 +1,9 @@
 package com.wealthPark.testApplication.data.remote.apiService
 
-import com.wealthPark.testApplication.data.model.City
-import com.wealthPark.testApplication.data.model.CityItem
-import com.wealthPark.testApplication.data.model.Food
-import com.wealthPark.testApplication.data.model.FoodItem
+import com.wealthPark.testApplication.data.local.model.City
+import com.wealthPark.testApplication.data.local.model.CityItem
+import com.wealthPark.testApplication.data.local.model.Food
+import com.wealthPark.testApplication.data.local.model.FoodItem
 import com.wealthPark.testApplication.data.remote.ApiEndPoint.Companion.CITY_LIST_API
 import com.wealthPark.testApplication.data.remote.ApiEndPoint.Companion.Food_LIST_API
 import retrofit2.Response

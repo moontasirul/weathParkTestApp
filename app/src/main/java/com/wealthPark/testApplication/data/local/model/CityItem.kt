@@ -1,20 +1,25 @@
-package com.wealthPark.testApplication.data.model
+package com.wealthPark.testApplication.data.local.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "food_info")
-data class FoodItem(
+@Entity(tableName = "city_info")
+data class CityItem(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
 
     @ColumnInfo(name = "name")
     @SerializedName("name")
-    var foodName: String? = null,
+    var cityName: String? = null,
 
     @ColumnInfo(name = "image")
     @SerializedName("image")
-    var foodImage: String? = null
+    var cityImage: String? = null,
+
+
+    @ColumnInfo(name = "description")
+    @SerializedName("description")
+    var cityDescription: String? = null
 )
