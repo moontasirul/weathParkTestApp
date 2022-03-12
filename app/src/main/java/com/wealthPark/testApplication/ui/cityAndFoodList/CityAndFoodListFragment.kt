@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.wealthPark.testApplication.R
 import com.wealthPark.testApplication.data.local.model.CityItem
 import com.wealthPark.testApplication.data.local.model.FoodItem
@@ -22,14 +24,16 @@ class CityAndFoodListFragment : Fragment(),
     FoodListRecyclerViewAdapter.FoodItemAdapterListener {
 
     companion object {
-
-        const val CAR_ID = "id"
+        const val CITY_ITEM = "CITY_ITEM"
+        const val FOOD_ITEM = "FOOD_ITEM"
     }
 
     private lateinit var cityAndFoodBinding: FragmentCityAndFoodListBinding
     private val viewModel: CityAndFoodListViewModel by viewModels()
 
+
     private lateinit var cityAdapter: CityListRecyclerViewAdapter
+
     private lateinit var foodAdapter: FoodListRecyclerViewAdapter
 
     override fun onCreateView(
@@ -41,33 +45,24 @@ class CityAndFoodListFragment : Fragment(),
     }
 
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.setNavigator(this)
 
-
+        viewModel.isLoading.value = true
         setupObservers()
     }
 
 
-
-
-
     private fun setupObservers() {
-        viewModel.isLoading.set(true)
 
         viewModel.cityResponse.observe(requireActivity()) { response ->
-            viewModel.getCarResponse(response)
+            viewModel.getCityResponse(response)
         }
         viewModel.foodResponse.observe(requireActivity()) { response ->
             viewModel.getFoodResponse(response)
         }
     }
-
-
-
-
 
 
     private fun onClickedCar(carId: Int) {
@@ -111,18 +106,24 @@ class CityAndFoodListFragment : Fragment(),
         cityAdapter = CityListRecyclerViewAdapter()
         cityAndFoodBinding.cityRecyclerView.adapter = cityAdapter
         cityAdapter.setListener(this)
-        cityAdapter.addItem(cityList)
+        cityAdapter.clearItems()
+        cityAdapter.addItems(cityList)
     }
 
     override fun onSetFoodInfo(foodList: ArrayList<FoodItem>) {
         foodAdapter = FoodListRecyclerViewAdapter()
         cityAndFoodBinding.foodRecyclerView.adapter = foodAdapter
         foodAdapter.setListener(this)
-        foodAdapter.addItem(foodList)
+        foodAdapter.clearItems()
+        foodAdapter.addItems(foodList)
     }
 
-    override fun onCityContent(contentId: Int) {
-
+    override fun onCityContent(mCityListModel: CityItem) {
+        val bundle = bundleOf(CITY_ITEM to mCityListModel)
+        findNavController().navigate(
+            R.id.action_cityAndFoodListFragment_to_DetailFragment,
+            bundle
+        )
     }
 
     override fun onRetryClick() {
@@ -130,7 +131,10 @@ class CityAndFoodListFragment : Fragment(),
     }
 
     override fun onFoodContent(mFoodListModel: FoodItem) {
-
+        findNavController().navigate(
+            R.id.action_cityAndFoodListFragment_to_DetailFragment,
+            bundleOf(FOOD_ITEM to mFoodListModel)
+        )
     }
 }
 

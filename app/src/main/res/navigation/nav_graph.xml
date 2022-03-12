@@ -13,11 +13,15 @@
         <action
             android:id="@+id/action_cityAndFoodListFragment_to_DetailFragment"
             app:destination="@id/detailFragment" />
-
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.wealthPark.testApplication.ui.details.DetailsFragment"
         android:label="Detail"
         tools:layout="@layout/fragment_details" />
+
+    <!--    <argument-->
+    <!--        android:name="cityItem"-->
+    <!--        app:argType="com.wealthPark.testApplication.data.local.model.CityItem"/>-->
+
 </navigation>

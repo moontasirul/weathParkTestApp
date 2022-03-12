@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.wealthPark.testApplication.R
+import com.wealthPark.testApplication.data.local.model.CityItem
+import com.wealthPark.testApplication.data.local.model.FoodItem
 import com.wealthPark.testApplication.databinding.FragmentDetailsBinding
 import com.wealthPark.testApplication.utils.dialogUtils.CustomDialogCallback
 import com.wealthPark.testApplication.utils.dialogUtils.CustomDialogFragment
@@ -20,7 +21,8 @@ class DetailsFragment : Fragment(), IDetailsNavigator {
 
     companion object {
         const val DIALOG_TAG = "dialog"
-        const val CAR_ID = "id"
+        const val CITY_ITEM = "CITY_ITEM"
+        const val FOOD_ITEM = "FOOD_ITEM"
     }
 
     private lateinit var detailsBinding: FragmentDetailsBinding
@@ -29,7 +31,12 @@ class DetailsFragment : Fragment(), IDetailsNavigator {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.getInt(CAR_ID)?.let { viewModel.setCarId(it) }
+        arguments?.getParcelable<CityItem>(CITY_ITEM)?.let {
+            viewModel.setCityInfo(it)
+        }
+        arguments?.getParcelable<FoodItem>(FOOD_ITEM)?.let {
+            viewModel.setFoodInfo(it)
+        }
     }
 
     override fun onCreateView(
@@ -45,32 +52,8 @@ class DetailsFragment : Fragment(), IDetailsNavigator {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.setNavigator(this)
-        setupObservers()
     }
 
-    private fun setupObservers() {
-        viewModel.isLoading.set(true)
-        viewModel.fetchCarDetails()
-        viewModel.response.observe(viewLifecycleOwner, Observer { response ->
-           // viewModel.getCarData(response)
-        })
-    }
-
-    override fun showSuccessDialog() {
-        showDialog(
-            requireContext().getString(R.string.msg_success_title),
-            "message",
-            true
-        )
-    }
-
-    override fun showFailedDialog() {
-        showDialog(
-            requireContext().getString(R.string.msg_failed_title),
-            "message",
-            true
-        )
-    }
 
     fun showDialog(title: String, message: String, isOnlyPositive: Boolean) {
         var dialog: DialogFragment? = null

@@ -19,28 +19,31 @@
 
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/vehicleTypeImage"
+            android:id="@+id/cityImage"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="180dp"
             app:defaultImage="@{`default_image`}"
             app:imageData="@{null}"
-            app:imageUrl="@{detailsViewModel.vehicleTypeImage}"
+            app:imageUrl="@{detailsViewModel.cityImage}"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/car_title_tv"
+            android:id="@+id/title_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:text="@={detailsViewModel.carTitle}"
+            android:text="@={detailsViewModel.title}"
+            android:textStyle="bold"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/vehicleTypeImage" />
+            app:layout_constraintTop_toBottomOf="@id/cityImage" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/car_clean_status_tv"
@@ -49,64 +52,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="16dp"
-            android:text="@={detailsViewModel.carCleanStatus}"
+            android:text="@={detailsViewModel.description}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/car_title_tv" />
-
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/car_damage_status_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="16dp"
-            android:text="@={detailsViewModel.carDamageStatus}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/car_clean_status_tv" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/licence_plate_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="16dp"
-            android:text="@={detailsViewModel.licencePlate}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/car_damage_status_tv" />
-
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/fuel_level_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="16dp"
-            android:text="@={detailsViewModel.fuelLevel}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/licence_plate_tv" />
-
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/damage_description_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="16dp"
-            android:text="@={detailsViewModel.damageDescription}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fuel_level_tv" />
-
-
-
+            app:layout_constraintTop_toBottomOf="@id/title_tv" />
 
         <ProgressBar
             android:id="@+id/progress_bar"

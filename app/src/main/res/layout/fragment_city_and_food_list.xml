@@ -39,6 +39,7 @@
                 android:text="Main Cities in Japan"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="16dp"
+                android:visibility="@{listViewModel.isLoading?View.GONE:View.VISIBLE}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -61,6 +62,7 @@
                 android:text="Most Popular Japanese Food"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="16dp"
+                android:visibility="@{listViewModel.isLoading?View.GONE:View.VISIBLE}"
                 app:layout_constraintTop_toBottomOf="@+id/city_recyclerView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />

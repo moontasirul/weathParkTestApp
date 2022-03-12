@@ -11,17 +11,17 @@ class CityItemViewModel(
 
     private val mListener: CityItemViewModelListener = listener
 
-    var itemId: MutableLiveData<Int> = MutableLiveData(position)
+    var cityItem: MutableLiveData<CityItem> = MutableLiveData(mCityItemModel)
     var cityName: MutableLiveData<String> = MutableLiveData(mCityItemModel.cityName)
     var cityDescription: MutableLiveData<String> = MutableLiveData(mCityItemModel.cityDescription)
     var cityImage: MutableLiveData<String> = MutableLiveData(mCityItemModel.cityImage)
 
 
     fun onItemClick() {
-        itemId.value?.let { mListener.onContentDetails(it) }
+        cityItem.value?.let { mListener.onContentDetails(it) }
     }
 
     interface CityItemViewModelListener {
-        fun onContentDetails(position: Int)
+        fun onContentDetails(mCityListModel: CityItem)
     }
 }

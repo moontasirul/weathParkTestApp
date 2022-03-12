@@ -1,11 +1,11 @@
 package com.wealthPark.testApplication.ui.base
 
-import androidx.databinding.ObservableBoolean
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 abstract class BaseViewModel<N : IBaseNavigator> : ViewModel() {
 
-    var isLoading = ObservableBoolean(false)
+    var isLoading = MutableLiveData(false)
     private lateinit var mNavigator: N
 
     /**

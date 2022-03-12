@@ -1,4 +1,4 @@
-package com.wealthPark.testApplication.utils
+package com.wealthPark.testApplication.utils.binding
 
 import android.webkit.URLUtil
 import android.widget.ImageView

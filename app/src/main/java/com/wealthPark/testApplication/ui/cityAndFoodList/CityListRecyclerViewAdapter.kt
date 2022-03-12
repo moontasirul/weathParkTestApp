@@ -8,7 +8,9 @@ import com.wealthPark.testApplication.data.local.model.CityItem
 import com.wealthPark.testApplication.databinding.LayoutCityItemBinding
 import com.wealthPark.testApplication.ui.base.BaseViewHolder
 
-class CityListRecyclerViewAdapter :
+class CityListRecyclerViewAdapter(
+
+) :
     RecyclerView.Adapter<CityListRecyclerViewAdapter.CityListViewHolder>() {
 
     lateinit var mListener: CityItemAdapterListener
@@ -40,9 +42,14 @@ class CityListRecyclerViewAdapter :
 
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addItem(list: ArrayList<CityItem>) {
+    fun addItems(list: List<CityItem>) {
         cityList.addAll(list)
         notifyDataSetChanged()
+    }
+
+
+    fun clearItems() {
+        cityList.clear()
     }
 
     /**
@@ -56,7 +63,7 @@ class CityListRecyclerViewAdapter :
      * Adapter Listener
      */
     interface CityItemAdapterListener {
-        fun onCityContent(contentId: Int)
+        fun onCityContent(mCityListModel: CityItem)
         fun onRetryClick()
     }
 
@@ -80,8 +87,8 @@ class CityListRecyclerViewAdapter :
         }
 
 
-        override fun onContentDetails(position: Int) {
-            mListener.onCityContent(position)
+        override fun onContentDetails(mCityListModel: CityItem) {
+            mListener.onCityContent(mCityListModel)
         }
     }
 }

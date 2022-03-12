@@ -8,7 +8,7 @@ import com.wealthPark.testApplication.data.local.model.FoodItem
 import com.wealthPark.testApplication.databinding.LayoutFoodItemBinding
 import com.wealthPark.testApplication.ui.base.BaseViewHolder
 
-class FoodListRecyclerViewAdapter :
+class FoodListRecyclerViewAdapter() :
     RecyclerView.Adapter<FoodListRecyclerViewAdapter.FoodListViewHolder>() {
 
     lateinit var mListener: FoodItemAdapterListener
@@ -35,10 +35,16 @@ class FoodListRecyclerViewAdapter :
 
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addItem(list: ArrayList<FoodItem>) {
+    fun addItems(list: List<FoodItem>) {
         foodList.addAll(list)
         notifyDataSetChanged()
     }
+
+
+    fun clearItems() {
+        foodList.clear()
+    }
+
 
     /**
      *Set Listener
