@@ -24,7 +24,7 @@ class CityAndFoodListFragment : Fragment(),
     }
 
     private lateinit var carBinding: FragmentCityAndFoodListBinding
-    private val viewModel by viewModels<CityAndFoodListViewModel>()
+    private val viewModel: CityAndFoodListViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -40,7 +40,7 @@ class CityAndFoodListFragment : Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.setNavigator(this)
-
+        setupObservers()
     }
 
 
@@ -49,9 +49,12 @@ class CityAndFoodListFragment : Fragment(),
 
     private fun setupObservers() {
         viewModel.isLoading.set(true)
-        viewModel.fetchCarResponse()
-        viewModel.response.observe(requireActivity()) { response ->
+
+        viewModel.cityResponse.observe(requireActivity()) { response ->
             viewModel.getCarResponse(response)
+        }
+        viewModel.foodResponse.observe(requireActivity()) { response ->
+            viewModel.getFoodResponse(response)
         }
     }
 

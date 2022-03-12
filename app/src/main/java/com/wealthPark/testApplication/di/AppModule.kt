@@ -8,6 +8,7 @@ import com.google.gson.GsonBuilder
 import com.wealthPark.testApplication.data.local.database.AppDatabase
 import com.wealthPark.testApplication.data.local.database.AppDatabase.Companion.DATABASE_NAME
 import com.wealthPark.testApplication.data.local.database.dao.CityDao
+import com.wealthPark.testApplication.data.local.database.dao.FoodDao
 import com.wealthPark.testApplication.data.local.prefs.AppPreferences
 import com.wealthPark.testApplication.data.remote.ApiEndPoint.Companion.BASE_URL
 import com.wealthPark.testApplication.data.remote.apiService.ICityAndFoodService
@@ -81,11 +82,18 @@ object AppModule {
             appContext,
             AppDatabase::class.java,
             DATABASE_NAME
-        ).allowMainThreadQueries().build()
+        ).fallbackToDestructiveMigration().build()
     }
 
     @Provides
-    fun provideCityDao(database: AppDatabase): CityDao {
-        return database.cityDao()
+    @Singleton
+    internal fun provideCityDao(context: Context): CityDao {
+        return provideDatabase(context).cityDao()
+    }
+
+    @Provides
+    @Singleton
+    internal fun provideFoodDao(context: Context): FoodDao {
+        return provideDatabase(context).foodDao()
     }
 }
