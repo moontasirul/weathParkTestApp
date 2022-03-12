@@ -19,14 +19,13 @@ class CityAndFoodListViewModel @Inject constructor(
     var foodResponse = repository.getAllFood()
 
     fun getCityResponse(response: Resource<List<CityItem>>) {
-        //   isLoading.value=true
+           isLoading.value = true
         when (response.status.name) {
             AppEnum.API_CALL_STATUS.SUCCESS.name -> {
                 response.data?.let {
                     navigator.onSetCityInfo(ArrayList(it))
                 }
                 isLoading.value = false
-                print("is loading1......${isLoading.value}")
             }
             AppEnum.API_CALL_STATUS.ERROR.name -> {
                 isLoading.value = false
@@ -34,7 +33,6 @@ class CityAndFoodListViewModel @Inject constructor(
             }
             AppEnum.API_CALL_STATUS.LOADING.name -> {
                 isLoading.value = true
-                print("is loading......${isLoading.value}")
             }
         }
     }

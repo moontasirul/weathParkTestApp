@@ -14,6 +14,7 @@ import com.wealthPark.testApplication.data.local.model.CityItem
 import com.wealthPark.testApplication.data.local.model.FoodItem
 import com.wealthPark.testApplication.databinding.FragmentCityAndFoodListBinding
 import com.wealthPark.testApplication.ui.details.DetailsFragment
+import com.wealthPark.testApplication.utils.CustomSwipeRefreshLayout
 import com.wealthPark.testApplication.utils.dialogUtils.CustomDialogCallback
 import com.wealthPark.testApplication.utils.dialogUtils.CustomDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class CityAndFoodListFragment : Fragment(),
     ICityAndFoodNavigator, CityListRecyclerViewAdapter.CityItemAdapterListener,
-    FoodListRecyclerViewAdapter.FoodItemAdapterListener {
+    FoodListRecyclerViewAdapter.FoodItemAdapterListener, CustomSwipeRefreshLayout.Event {
 
     companion object {
         const val CITY_ITEM = "CITY_ITEM"
@@ -41,6 +42,7 @@ class CityAndFoodListFragment : Fragment(),
         savedInstanceState: Bundle?
     ): View {
         cityAndFoodBinding = FragmentCityAndFoodListBinding.inflate(layoutInflater)
+        cityAndFoodBinding.fragmentSwipeContainer.setEventListener(this)
         return cityAndFoodBinding.root
     }
 
@@ -55,7 +57,6 @@ class CityAndFoodListFragment : Fragment(),
 
 
     private fun setupObservers() {
-
         viewModel.cityResponse.observe(requireActivity()) { response ->
             viewModel.getCityResponse(response)
         }
@@ -64,13 +65,6 @@ class CityAndFoodListFragment : Fragment(),
         }
     }
 
-
-    private fun onClickedCar(carId: Int) {
-        /*findNavController().navigate(
-            R.id.action_carsFragment_to_carDetailFragment,
-            bundleOf(CAR_ID to carId)
-        )*/
-    }
 
     fun showDialog(title: String, message: String, isOnlyPositive: Boolean) {
         var dialog: DialogFragment? = null
@@ -135,6 +129,10 @@ class CityAndFoodListFragment : Fragment(),
             R.id.action_cityAndFoodListFragment_to_DetailFragment,
             bundleOf(FOOD_ITEM to mFoodListModel)
         )
+    }
+
+    override fun onRefresh(view: CustomSwipeRefreshLayout) {
+        setupObservers()
     }
 }
 
