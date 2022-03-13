@@ -11,4 +11,5 @@
     <string name="btn_text_no">No</string>
     <string name="main_cities_in_japan">Main Cities in Japan</string>
     <string name="most_popular_japanese_food">Most Popular Japanese Food</string>
+    <string name="error_message">Something went wrong...</string>
 </resources>

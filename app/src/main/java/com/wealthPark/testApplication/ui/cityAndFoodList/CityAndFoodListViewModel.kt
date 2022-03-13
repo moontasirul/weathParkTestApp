@@ -32,7 +32,7 @@ class CityAndFoodListViewModel @Inject constructor(
             }
             AppEnum.API_CALL_STATUS.ERROR.name -> {
                 isLoading.value = false
-                print(response.message)
+                response.message?.let { navigator.messageDialog(it) }
             }
             AppEnum.API_CALL_STATUS.LOADING.name -> {
                 isLoading.value = true
@@ -51,7 +51,7 @@ class CityAndFoodListViewModel @Inject constructor(
             }
             AppEnum.API_CALL_STATUS.ERROR.name -> {
                 isLoading.value = false
-                print(response.message)
+                response.message?.let { navigator.messageDialog(it) }
             }
             AppEnum.API_CALL_STATUS.LOADING.name -> {
                 isLoading.value = true

@@ -52,8 +52,6 @@ class CityAndFoodListFragment : Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.setNavigator(this)
-//        cityAndFoodBinding.cityItemTv.visibility = View.GONE
-//        cityAndFoodBinding.foodItemTv.visibility = View.GONE
         viewModel.isLoading.value = true
         setupObservers()
     }
@@ -68,6 +66,9 @@ class CityAndFoodListFragment : Fragment(),
         }
     }
 
+    override fun messageDialog(message: String) {
+        showDialog(requireContext().resources.getString(R.string.msg_failed_title), message, true)
+    }
 
     fun showDialog(title: String, message: String, isOnlyPositive: Boolean) {
         var dialog: DialogFragment? = null

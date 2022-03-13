@@ -28,17 +28,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <ProgressBar
-                        android:id="@+id/progress_bar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:indeterminate="true"
-                        android:visibility="@{listViewModel.isLoading?View.VISIBLE:View.GONE}"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                    <!--                    <ProgressBar-->
+                    <!--                        android:id="@+id/progress_bar"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_gravity="center"-->
+                    <!--                        android:indeterminate="true"-->
+                    <!--                        android:visibility="@{listViewModel.isLoading?View.VISIBLE:View.GONE}"-->
+                    <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                        app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                        app:layout_constraintTop_toTopOf="parent" />-->
 
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -91,6 +91,17 @@
 
 
         </com.wealthPark.testApplication.utils.CustomSwipeRefreshLayout>
+
+        <com.wealthPark.testApplication.utils.CustomProgressBar
+            android:id="@+id/fragment_home_parent_clpb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:visibility="@{listViewModel.isLoading}" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
