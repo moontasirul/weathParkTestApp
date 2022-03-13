@@ -1,5 +1,6 @@
 package com.wealthPark.testApplication.ui.cityAndFoodList
 
+import androidx.databinding.ObservableField
 import com.wealthPark.testApplication.data.local.model.CityItem
 import com.wealthPark.testApplication.data.local.model.FoodItem
 import com.wealthPark.testApplication.data.repository.AppRepository
@@ -15,8 +16,10 @@ class CityAndFoodListViewModel @Inject constructor(
     private val repository: AppRepository
 ) : BaseViewModel<ICityAndFoodNavigator>() {
 
+    var isDataFetching = ObservableField(false)
     var cityResponse = repository.getAllCitys()
     var foodResponse = repository.getAllFood()
+
 
     fun getCityResponse(response: Resource<List<CityItem>>) {
            isLoading.value = true

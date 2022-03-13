@@ -47,8 +47,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:layout_marginTop="16dp"
-                        android:text="Main Cities in Japan"
-                        android:visibility="@{listViewModel.isLoading?View.GONE:View.VISIBLE}"
+                        android:text="@string/main_cities_in_japan"
+                        app:visibility="@{listViewModel.isDataFetching}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -70,8 +70,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:layout_marginTop="16dp"
-                        android:text="Most Popular Japanese Food"
-                        android:visibility="@{listViewModel.isLoading?View.GONE:View.VISIBLE}"
+                        android:text="@string/most_popular_japanese_food"
+                        app:visibility="@{listViewModel.isDataFetching}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/city_recyclerView" />

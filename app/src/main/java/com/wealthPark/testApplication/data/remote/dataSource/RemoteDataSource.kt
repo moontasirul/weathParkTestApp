@@ -9,6 +9,4 @@ class RemoteDataSource @Inject constructor(
 ) : BaseDataSource() {
     suspend fun getAllCity() = getResult { cityAndFoodService.getAllCity() }
     suspend fun getAllFood() = getResult { cityAndFoodService.getAllFoods() }
-    suspend fun getCityInfo(id: Int) = getResult { cityAndFoodService.getCityInfo(id) }
-    suspend fun getFoodInfo(id: Int) = getResult { cityAndFoodService.getFoodInfo(id) }
 }

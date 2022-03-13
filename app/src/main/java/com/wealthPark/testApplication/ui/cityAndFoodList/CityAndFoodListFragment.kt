@@ -30,7 +30,7 @@ class CityAndFoodListFragment : Fragment(),
     }
 
     private lateinit var cityAndFoodBinding: FragmentCityAndFoodListBinding
-    private val viewModel: CityAndFoodListViewModel by viewModels()
+    private val viewModel by viewModels<CityAndFoodListViewModel>()
 
 
     private lateinit var cityAdapter: CityListRecyclerViewAdapter
@@ -42,6 +42,8 @@ class CityAndFoodListFragment : Fragment(),
         savedInstanceState: Bundle?
     ): View {
         cityAndFoodBinding = FragmentCityAndFoodListBinding.inflate(layoutInflater)
+        cityAndFoodBinding.lifecycleOwner = this
+        cityAndFoodBinding.listViewModel = viewModel
         cityAndFoodBinding.fragmentSwipeContainer.setEventListener(this)
         return cityAndFoodBinding.root
     }
@@ -50,7 +52,8 @@ class CityAndFoodListFragment : Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.setNavigator(this)
-
+//        cityAndFoodBinding.cityItemTv.visibility = View.GONE
+//        cityAndFoodBinding.foodItemTv.visibility = View.GONE
         viewModel.isLoading.value = true
         setupObservers()
     }
@@ -97,6 +100,7 @@ class CityAndFoodListFragment : Fragment(),
 
 
     override fun onSetCityInfo(cityList: ArrayList<CityItem>) {
+        viewModel.isDataFetching.set(true)
         cityAdapter = CityListRecyclerViewAdapter()
         cityAndFoodBinding.cityRecyclerView.adapter = cityAdapter
         cityAdapter.setListener(this)
@@ -105,6 +109,7 @@ class CityAndFoodListFragment : Fragment(),
     }
 
     override fun onSetFoodInfo(foodList: ArrayList<FoodItem>) {
+        viewModel.isDataFetching.set(true)
         foodAdapter = FoodListRecyclerViewAdapter()
         cityAndFoodBinding.foodRecyclerView.adapter = foodAdapter
         foodAdapter.setListener(this)

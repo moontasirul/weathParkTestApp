@@ -11,4 +11,6 @@
     <string name="msg_failed_title">Sorry..!</string>
     <string name="dismiss_dialog_txt">Dismiss dialog</string>
     <string name="btn_text_no">No</string>
+    <string name="main_cities_in_japan">Main Cities in Japan</string>
+    <string name="most_popular_japanese_food">Most Popular Japanese Food</string>
 </resources>
